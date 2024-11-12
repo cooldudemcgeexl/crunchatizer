@@ -1,0 +1,1 @@
+export type ScalingAlgo = 'nearest' | 'linear' | 'cubic';

@@ -1,13 +1,15 @@
 <script lang="ts">
+	import type { TransformParams } from '$lib/types/transform';
+
 	interface NumericParamProps {
 		name: string;
-		bindingVar: number;
+		value: number;
 		label?: string;
 		minVal?: number;
 		maxVal?: number;
 	}
 
-	let { name, bindingVar, label, minVal, maxVal }: NumericParamProps = $props();
+	let { name, value = $bindable(50), label, minVal, maxVal }: NumericParamProps = $props();
 
 	const minRangeVal = minVal ?? 0;
 	const maxRangeVal = maxVal ?? 100;
@@ -21,7 +23,7 @@
 			type="range"
 			min={minRangeVal}
 			max={maxRangeVal}
-			bind:value={bindingVar}
+			bind:value
 			id={`${name}Range`}
 			class="range range-sm"
 		/>
@@ -34,7 +36,7 @@
 			class="input input-bordered input-ghost input-sm"
 			min={minRangeVal}
 			max={maxRangeVal}
-			bind:value={bindingVar}
+			bind:value
 		/>
 	</div>
 </div>

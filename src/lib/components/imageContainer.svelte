@@ -1,24 +1,19 @@
 <script lang="ts">
 	import NumericParam from '$lib/components/numericParam.svelte';
-	type ScalingAlgo = 'nearest' | 'linear' | 'cubic';
-
-	interface TransformParams {
-		scaleX: number;
-		scaleY: number;
-		scaleDownAlgo: ScalingAlgo;
-		scaleUpAlgo: ScalingAlgo;
-	}
+	import type { ScalingAlgo } from '$lib/types/scaling';
+	import { setContext } from 'svelte';
+	import ScalingSelect from './scalingSelect.svelte';
+	import { writable } from 'svelte/store';
+	import type { TransformParams } from '$lib/types/transform';
 
 	let files: FileList | undefined = $state();
 	let imageSrc: string | undefined = $state('');
 	let imageFile = $derived(files?.[0]);
 
-	let transformParams: TransformParams = $state({
-		scaleX: 50,
-		scaleY: 50,
-		scaleDownAlgo: 'nearest',
-		scaleUpAlgo: 'nearest'
-	});
+	let scaleX = $state(50);
+	let scaleY = $state(50);
+	let scaleDownAlgo = $state<ScalingAlgo>('nearest');
+	let scaleUpAlgo = $state<ScalingAlgo>('nearest');
 
 	$effect(() => {
 		if (files) {
@@ -34,8 +29,12 @@
 			reader.readAsDataURL(imageFile);
 		}
 	});
-
-	$effect(() => console.log(transformParams.scaleX));
+	$effect(() => {
+		console.log(scaleX);
+		console.log(scaleY);
+		console.log(scaleDownAlgo);
+		console.log(scaleUpAlgo);
+	});
 </script>
 
 <div class="flex w-full grow flex-col items-center">
@@ -60,8 +59,10 @@
 		</div>
 
 		<div class="flex flex-col space-y-2">
-			<NumericParam name="scaleX" bindingVar={transformParams.scaleX} label="Scale X" />
-			<NumericParam name="scaleY" bindingVar={transformParams.scaleY} label="Scale Y" />
+			<NumericParam name="scaleX" bind:value={scaleX} label="Scale X" />
+			<NumericParam name="scaleY" bind:value={scaleY} label="Scale Y" />
+			<ScalingSelect name="scaleDownAlgo" bind:value={scaleDownAlgo} label="Downscaling" />
+			<ScalingSelect name="scaleDownAlgo" bind:value={scaleUpAlgo} label="Downscaling" />
 		</div>
 	</div>
 </div>
