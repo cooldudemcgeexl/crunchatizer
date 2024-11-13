@@ -4,9 +4,6 @@
 </script>
 
 <div class="flex h-full min-h-full w-full grow flex-col items-center space-y-2">
-	<img src={firelogo} />
+	<img src={firelogo} alt="The Crunchatizer" />
 	<ImageContainer />
-	<!-- <form method="POST">
-		<label>Upload a file <input name="imageFile" type="file" bind:files={fileList} /> </label>
-	</form> -->
 </div>
