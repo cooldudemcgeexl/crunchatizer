@@ -36,7 +36,7 @@
 	});
 </script>
 
-<div class="flex w-full grow flex-col items-center">
+<div class="flex w-full grow flex-col items-center space-y-2">
 	<input
 		class="file-input file-input-ghost"
 		bind:files
@@ -46,7 +46,7 @@
 		type="file"
 	/>
 	{#if files}
-		<div class="flex max-h-[60%] w-full grow items-center justify-around">
+		<div class="flex max-h-[60%] w-full grow items-center justify-around align-middle">
 			<div class="max-h-full max-w-[50%]">
 				<img src={imageSrc} alt="original uploaded" class="max-h-full max-w-full" />
 			</div>
