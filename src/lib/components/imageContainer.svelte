@@ -1,10 +1,11 @@
 <script lang="ts">
+	import getModifiedImage from '$lib/api/img';
 	import NumericParam from '$lib/components/numericParam.svelte';
 	import type { ScalingAlgo } from '$lib/types/scaling';
 	import ScalingSelect from './scalingSelect.svelte';
 
 	let files: FileList | undefined = $state();
-	let imageSrc: string | undefined = $state('');
+	let imageSrc: string | undefined = $state(undefined);
 	let imageFile = $derived(files?.[0]);
 
 	let scaleX = $state(50);
@@ -21,6 +22,16 @@
 			reader.readAsDataURL(imageFile);
 		}
 	});
+
+	let transImage = $derived.by(async () => {
+		return await getModifiedImage({
+			scaleX,
+			scaleY,
+			scaleDownAlgo,
+			scaleUpAlgo,
+			imageUrl: imageSrc
+		});
+	});
 </script>
 
 <div class="flex w-full grow flex-col items-center">
@@ -33,12 +44,27 @@
 		type="file"
 	/>
 	{#if files}
-		<div class="flex w-full grow items-center justify-around">
-			<img src={imageSrc} alt="original uploaded" class="max-w-[50%]" />
-			<img src={imageSrc} alt="altered version" class="max-w-[50%]" />
+		<div class="flex max-h-[60%] w-full grow items-center justify-around">
+			<div class="max-h-full max-w-[50%]">
+				<img src={imageSrc} alt="original uploaded" class="max-h-full max-w-full" />
+			</div>
+			<div class="relative max-h-full max-w-[50%]">
+				{#await transImage}
+					<img
+						src={imageSrc}
+						class="max=h-full max-w-full blur-lg"
+						alt="original upload with a blur applied to signify loading"
+					/>
+					<div class="absolute-center">
+						<span class=" loading loading-spinner loading-lg"></span>
+					</div>
+				{:then imageData}
+					<img src={imageData.imageUrl} class="max-h-full max-w-full" alt="altered image" />
+				{/await}
+			</div>
 		</div>
 	{/if}
-	<div class="flex w-full max-w-[20%] flex-col items-center space-y-4">
+	<div class="flex h-full w-full max-w-[20%] flex-col items-center justify-end space-y-4">
 		<div class="text-2xl">
 			<h1>PARAMETERS</h1>
 		</div>

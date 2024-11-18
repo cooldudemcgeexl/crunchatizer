@@ -4,6 +4,7 @@ import typography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors'
 import daisyui from 'daisyui'
+import plugin from 'tailwindcss/plugin';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -17,5 +18,18 @@ export default {
   },
 
 
-  plugins: [typography, containerQueries, aspectRatio, daisyui]
+  plugins: [
+    typography,
+    containerQueries,
+    aspectRatio,
+    daisyui,
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.absolute-center': {
+          top: "50%", left: "50%", transform: "translate(-50%, -50%)", position: "absolute"
+        }
+      })
+    })
+
+  ]
 } satisfies Config;

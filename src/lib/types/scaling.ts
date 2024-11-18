@@ -1,1 +1,3 @@
-export type ScalingAlgo = 'nearest' | 'linear' | 'cubic';
+import type sharp from "sharp";
+
+export type ScalingAlgo = keyof sharp.KernelEnum;

@@ -3,7 +3,7 @@
 	import firelogo from '$lib/assets/images/firelogo.gif';
 </script>
 
-<div class="flex h-full min-h-full w-full grow flex-col items-center space-y-2">
+<div class="flex min-h-full w-full grow flex-col items-center space-y-2">
 	<img src={firelogo} alt="The Crunchatizer" />
 	<ImageContainer />
 </div>
