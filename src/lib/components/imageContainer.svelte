@@ -46,11 +46,13 @@
 		type="file"
 	/>
 	{#if files}
-		<div class="flex max-h-[60%] w-full grow items-center justify-around align-middle">
-			<div class="max-h-full max-w-[50%]">
+		<div class="flex max-h-[60%] w-full grow flex-col place-content-center space-y-1 md:flex-row">
+			<div class="flex max-h-[50%] max-w-full place-content-center md:max-h-full md:max-w-[50%]">
 				<img src={imageSrc} alt="original uploaded" class="max-h-full max-w-full" />
 			</div>
-			<div class="relative max-h-full max-w-[50%]">
+			<div
+				class="relative flex max-h-[50%] max-w-full place-content-center md:max-h-full md:max-w-[50%]"
+			>
 				{#await transImage}
 					<img
 						src={imageSrc}
