@@ -9,7 +9,10 @@
 	const scalingOptions: ScalingOption[] = [
 		{ algoVal: 'nearest', name: 'Nearest Neighbor' },
 		{ algoVal: 'linear', name: 'Linear' },
-		{ algoVal: 'cubic', name: 'Cubic' }
+		{ algoVal: 'cubic', name: 'Cubic' },
+		{ algoVal: 'mitchell', name: 'Mitchell' },
+		{ algoVal: 'lanczos2', name: 'Lanzcos 2' },
+		{ algoVal: 'lanczos3', name: 'Lanzcos 3' }
 	];
 
 	interface ScalingSelectProps {
