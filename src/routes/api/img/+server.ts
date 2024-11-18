@@ -12,14 +12,22 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const origImage = sharp(imageBuffer)
 
-    const { width, height, format } = await origImage.metadata();
+    const { width, height, format, orientation } = await origImage.metadata();
 
 
     if (!width || !height) {
         return json(transformRequest);
     }
-    const scaleWidth = Math.ceil(width * (transformRequest.scaleX / 100))
-    const scaleHeight = Math.ceil(height * (transformRequest.scaleY / 100))
+
+    const isRotated = (orientation || 0) >= 5
+
+    const targetWidth = isRotated ? height : width;
+    const targetHeight = isRotated ? width : height;
+
+
+
+    const scaleWidth = Math.ceil(targetWidth * (transformRequest.scaleX / 100))
+    const scaleHeight = Math.ceil(targetHeight * (transformRequest.scaleY / 100))
 
     origImage.rotate().resize(scaleWidth, scaleHeight, { fit: "fill", kernel: transformRequest.scaleDownAlgo })
 
@@ -34,11 +42,11 @@ export const POST: RequestHandler = async ({ request }) => {
 
     if (transformRequest.upscaleToYDim) {
         const upscaleWidth = Math.ceil(downScaleWidth / (transformRequest.scaleX / 100))
-        downScaleImg.resize(upscaleWidth, height, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
+        downScaleImg.resize(upscaleWidth, targetHeight, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
     }
     else {
         const upscaleHeight = Math.ceil(downScaleHeight / (transformRequest.scaleY / 100))
-        downScaleImg.resize(width, upscaleHeight, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
+        downScaleImg.resize(targetWidth, upscaleHeight, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
     }
 
 
