@@ -14,13 +14,14 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const { width, height, format } = await origImage.metadata();
 
+
     if (!width || !height) {
         return json(transformRequest);
     }
     const scaleWidth = Math.ceil(width * (transformRequest.scaleX / 100))
     const scaleHeight = Math.ceil(height * (transformRequest.scaleY / 100))
 
-    origImage.resize(scaleWidth, scaleHeight, { fit: "fill", kernel: transformRequest.scaleDownAlgo })
+    origImage.rotate().resize(scaleWidth, scaleHeight, { fit: "fill", kernel: transformRequest.scaleDownAlgo })
 
     const downScaleBuff = await origImage.toBuffer()
     const downScaleImg = sharp(downScaleBuff)
