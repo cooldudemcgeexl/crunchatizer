@@ -75,7 +75,7 @@
 			<NumericParam name="scaleX" bind:value={scaleX} label="Scale X" minVal={1} />
 			<NumericParam name="scaleY" bind:value={scaleY} label="Scale Y" minVal={1} />
 			<ScalingSelect name="scaleDownAlgo" bind:value={scaleDownAlgo} label="Downscaling" />
-			<ScalingSelect name="scaleDownAlgo" bind:value={scaleUpAlgo} label="Downscaling" />
+			<ScalingSelect name="scaleDownAlgo" bind:value={scaleUpAlgo} label="Upscaling" />
 			<div class="flex space-x-10">
 				<label class="min-w-[20%]" for="toggleUpscaleAxis">Upscale Axis</label>
 				<div class="flex justify-between space-x-1 align-middle">
