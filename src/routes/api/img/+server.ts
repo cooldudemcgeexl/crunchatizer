@@ -30,9 +30,15 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!downScaleWidth || !downScaleHeight) {
         return json(transformRequest);
     }
-    const upscaleHeight = Math.ceil(downScaleHeight / (transformRequest.scaleY / 100))
 
-    downScaleImg.resize(width, upscaleHeight, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
+    if (transformRequest.upscaleToYDim) {
+        const upscaleWidth = Math.ceil(downScaleWidth / (transformRequest.scaleX / 100))
+        downScaleImg.resize(upscaleWidth, height, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
+    }
+    else {
+        const upscaleHeight = Math.ceil(downScaleHeight / (transformRequest.scaleY / 100))
+        downScaleImg.resize(width, upscaleHeight, { fit: "fill", kernel: transformRequest.scaleUpAlgo })
+    }
 
 
     const transBuff = await downScaleImg.toBuffer();

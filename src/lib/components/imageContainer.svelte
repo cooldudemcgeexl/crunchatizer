@@ -12,6 +12,7 @@
 	let scaleY = $state(50);
 	let scaleDownAlgo = $state<ScalingAlgo>('nearest');
 	let scaleUpAlgo = $state<ScalingAlgo>('nearest');
+	let upscaleToYDim = $state(false);
 
 	$effect(() => {
 		if (imageFile) {
@@ -29,6 +30,7 @@
 			scaleY,
 			scaleDownAlgo,
 			scaleUpAlgo,
+			upscaleToYDim,
 			imageUrl: imageSrc
 		});
 	});
@@ -59,7 +61,7 @@
 						<span class=" loading loading-spinner loading-lg"></span>
 					</div>
 				{:then imageData}
-					<img src={imageData.imageUrl} class="max-h-full max-w-full" alt="altered image" />
+					<img src={imageData.imageUrl} class="max-h-full max-w-full" alt="altered" />
 				{/await}
 			</div>
 		</div>
@@ -74,6 +76,14 @@
 			<NumericParam name="scaleY" bind:value={scaleY} label="Scale Y" minVal={1} />
 			<ScalingSelect name="scaleDownAlgo" bind:value={scaleDownAlgo} label="Downscaling" />
 			<ScalingSelect name="scaleDownAlgo" bind:value={scaleUpAlgo} label="Downscaling" />
+			<div class="flex space-x-10">
+				<label class="min-w-[20%]" for="toggleUpscaleAxis">Upscale Axis</label>
+				<div class="flex justify-between space-x-1 align-middle">
+					<span>X</span>
+					<input type="checkbox" class="toggle" bind:checked={upscaleToYDim} />
+					<span>Y</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

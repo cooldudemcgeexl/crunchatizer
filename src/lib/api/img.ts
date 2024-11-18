@@ -22,6 +22,7 @@ export interface ImageTransform {
     scaleY: number
     scaleDownAlgo: ScalingAlgo
     scaleUpAlgo: ScalingAlgo
+    upscaleToYDim: boolean
     imageUrl?: string
 }
 
