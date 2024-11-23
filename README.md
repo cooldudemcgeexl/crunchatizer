@@ -1,38 +1,24 @@
-# sv
+# Crunchatizer
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A goofy project built in SvelteKit to explore distortion caused by image resizing with various algorithms. Mainly used to refresh my Svelte knowledge post v5 release (runes).
 
-## Creating a project
+Available at [https://crunchatize.cooldude.cool](https://crunchatize.cooldude.cool)
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+If you want to work on this for some reason, clone the repository and install the dependencies:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+yarn install
 ```
 
-## Building
-
-To create a production version of your app:
+You can then run the project with hot reload using:
 
 ```bash
-npm run build
+yarn dev --open
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Major Acknowledgements
+- [SvelteKit](https://svelte.dev/docs/kit/introduction) - The framework I built this in. Probably the most enjoyable JS framework I've worked in so far.
+- [sharp](https://sharp.pixelplumbing.com/) - What I use for image processing on the server. Genuinely impressively fast library. This project would be dead in the water without it.
